@@ -18,26 +18,36 @@ namespace RelativeShortcut
 		[STAThread]
 		static void Main(string[] args)
 		{
+			AppInfo.AppInitialize();
+
 			// 引数をログファイルへ保存
-			foreach(string cmd in args ) {
-				AppInfo.WriteLogFile( cmd );
+			foreach( string cmd in args ) {
+				DebugUtillity.WriteLogFile( cmd );
 			}
 
 			// 引数の確認
-			if(args.Length > 1 ) {
+			if( args.Length > 0 ) {
 
-				switch( args[1] ) {
+				switch( args[0] ) {
 				case ContextUtillity.CONTEXT_CMD_01:
-					AppInfo.WriteTempFile( args[0] );
+					AppInfo.WriteTempFile( args[1] );
 					break;
 
 				case ContextUtillity.CONTEXT_CMD_02:
 					string src = AppInfo.ReadTempFile();
-					ShortcutUtillity.MakeShortcut( src, args[0] );
+					ShortcutUtillity.MakeRelativeShortcut( src, args[1] );
+					break;
+
+				case ContextUtillity.START_PRAM_ADD:
+					ContextUtillity.AddContextMenu();
+					break;
+
+				case ContextUtillity.START_PRAM_DEL:
+					ContextUtillity.DelContextMenu();
 					break;
 				}
 
-			} else { 
+			} else {
 
 				// 通常起動の場合はフォームを表示
 				Application.EnableVisualStyles();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 using Utility;
 
 namespace RelativeShortcut
@@ -18,17 +18,12 @@ namespace RelativeShortcut
 
 		/// *******************************************************************
 		/// <summary>
-		/// 時刻を追加しlogファイルへの書き込み
+		/// アプリの初期設定
 		/// </summary>
-		/// <param name="data">書込みデータ</param>
 		/// *******************************************************************
-		public static void WriteLogFile(string data)
+		public static void AppInitialize()
 		{
-			DateTime dt = DateTime.Now;
-			string str = dt.ToString();
-			string log = str + "\t" + data;
-
-			FileUtillity.WriteTextFile(LOG_FILE_NAME, log, true);
+			DebugUtillity.SetLogFilePath( LOG_FILE_NAME );
 		}
 
 		/// *******************************************************************

@@ -19,6 +19,8 @@ namespace Utility
 
 		public const string CONTEXT_CMD_01 = "/l";
 		public const string CONTEXT_CMD_02 = "/c";
+		public const string START_PRAM_ADD = "/add";
+		public const string START_PRAM_DEL = "/del";
 
 		/// *******************************************************************
 		/// <summary>
@@ -29,8 +31,8 @@ namespace Utility
 		public static void AddContextMenu()
 		{
 			// 実行するコマンドライン
-			string commandline_01 = "\"" + Application.ExecutablePath + "\" \"%1\" " + "\"" + CONTEXT_CMD_01 + "\"";
-			string commandline_02 = "\"" + Application.ExecutablePath + "\" \"%V\" " + "\"" + CONTEXT_CMD_02 + "\"";
+			string commandline_01 = "\"" + Application.ExecutablePath + "\" \"" + CONTEXT_CMD_01 + "\" \"%1\"";
+			string commandline_02 = "\"" + Application.ExecutablePath + "\" \"" + CONTEXT_CMD_02 + "\" \"%V\"";
 
 			// 説明（エクスプローラのコンテキストメニューに表示される）
 			string description_01 = "リンク対象に選択(&L)";
