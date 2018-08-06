@@ -33,7 +33,7 @@ namespace RelativeShortcut
 
 				case ContextUtillity.CONTEXT_CMD_02:
 					string src = AppInfo.ReadTempFile();
-					ShortcutUtillity.MakeShortcut( src, args[0] );
+					ShortcutUtillity.MakeRelativeShortcut( src, args[0] );
 					break;
 				}
 

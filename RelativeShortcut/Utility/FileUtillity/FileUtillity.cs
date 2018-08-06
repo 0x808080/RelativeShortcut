@@ -88,5 +88,10 @@ namespace Utility
 		{
 			return System.IO.Path.GetFileName( path );
 		}
+
+		public static string GetDirectory(string path)
+		{
+			return System.IO.Path.GetDirectoryName(path);
+		}
 	}
 }
