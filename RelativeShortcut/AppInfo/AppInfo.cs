@@ -28,6 +28,20 @@ namespace RelativeShortcut
 
 		/// *******************************************************************
 		/// <summary>
+		/// 起動時の引数を取得
+		/// </summary>
+		/// <returns>取得した引数</returns>
+		/// *******************************************************************
+		private static string[] GetCmdPram()
+		{
+			// コマンドライン引数を配列で取得する
+			string[] cmds = System.Environment.GetCommandLineArgs();
+
+			return cmds;
+		}
+
+		/// *******************************************************************
+		/// <summary>
 		/// 一時データとして保存
 		/// </summary>
 		/// <param name="path">書込みデータ</param>

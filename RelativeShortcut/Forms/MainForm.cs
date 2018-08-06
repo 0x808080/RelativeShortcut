@@ -32,29 +32,6 @@ namespace RelativeShortcut
 			// 管理者権限が必要なボタンに盾マークを追加
 			AdminUtillity.SetShieldIcon( button1 );
 			AdminUtillity.SetShieldIcon( button2 );
-
-			string[] cmds = GetCmdPram();
-
-			// 引数がない場合は何もしない
-			if( cmds.Length < 2 ) {
-				return;
-			}
-
-
-		}
-
-		/// *******************************************************************
-		/// <summary>
-		/// 起動時の引数を取得
-		/// </summary>
-		/// <returns>取得した引数</returns>
-		/// *******************************************************************
-		private string[] GetCmdPram()
-		{
-			// コマンドライン引数を配列で取得する
-			string[] cmds = System.Environment.GetCommandLineArgs();
-
-			return cmds;
 		}
 
 		/// *******************************************************************

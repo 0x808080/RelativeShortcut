@@ -56,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AdminUtillity\AdminUtillity.cs" />
     <Compile Include="Utility\ContextUtillity\ContextUtillity.cs" />
+    <Compile Include="Utility\DebugUtillity\DebugUtillity.cs" />
     <Compile Include="Utility\FileUtillity\FileUtillity.cs" />
     <Compile Include="Utility\MsgUtillity\MsgUtillity.cs" />
     <Compile Include="Utility\ShortcutUtillity\ShortcutUtillity.cs" />
