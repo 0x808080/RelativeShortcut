@@ -32,7 +32,7 @@ namespace RelativeShortcut
 			string[] cmds = GetCmdPram();
 
 			// 引数がない場合は何もしない
-			if(cmds.Length < 2 ) {
+			if( cmds.Length < 2 ) {
 				return;
 			}
 
@@ -65,7 +65,7 @@ namespace RelativeShortcut
 			string str = dt.ToString();
 			string log = str + "\t" + data;
 
-			FileUtillity.WriteTextFile(AppInfo.LOG_FILE_NAME, log, true);
+			FileUtillity.WriteTextFile( AppInfo.LOG_FILE_NAME, log, true );
 		}
 
 		/// *******************************************************************
@@ -77,13 +77,12 @@ namespace RelativeShortcut
 		/// *******************************************************************
 		private void Button1_Click(object sender, EventArgs e)
 		{
-			ContextUtillity.AddContextMenu();
+			AppInfo.AdminStart( ContextUtillity.START_PRAM_ADD );
 		}
 
 		private void Button2_Click(object sender, EventArgs e)
 		{
-			ContextUtillity.DelContextMenu();
-
+			AppInfo.AdminStart( ContextUtillity.START_PRAM_DEL );
 		}
 	}
 }
