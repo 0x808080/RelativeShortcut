@@ -29,6 +29,10 @@ namespace RelativeShortcut
 		/// *******************************************************************
 		private void Form1_Load(object sender, EventArgs e)
 		{
+			// 管理者権限が必要なボタンに盾マークを追加
+			AdminUtillity.SetShieldIcon( button1 );
+			AdminUtillity.SetShieldIcon( button2 );
+
 			string[] cmds = GetCmdPram();
 
 			// 引数がない場合は何もしない
@@ -70,19 +74,28 @@ namespace RelativeShortcut
 
 		/// *******************************************************************
 		/// <summary>
-		/// 
+		/// シェル拡張ボタンのイベント
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		/// *******************************************************************
 		private void Button1_Click(object sender, EventArgs e)
 		{
-			AppInfo.AdminStart( ContextUtillity.START_PRAM_ADD );
+			// 管理者権限で自分を起動(引数にシュル拡張コマンドを指定)
+			AdminUtillity.AdminStart( ContextUtillity.START_PRAM_ADD );
 		}
 
+		/// *******************************************************************
+		/// <summary>
+		/// シェル拡張解除ボタンのイベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		/// *******************************************************************
 		private void Button2_Click(object sender, EventArgs e)
 		{
-			AppInfo.AdminStart( ContextUtillity.START_PRAM_DEL );
+			// 管理者権限で自分を起動(引数にシュル拡張解除コマンドを指定)
+			AdminUtillity.AdminStart( ContextUtillity.START_PRAM_DEL );
 		}
 	}
 }

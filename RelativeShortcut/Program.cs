@@ -18,9 +18,11 @@ namespace RelativeShortcut
 		[STAThread]
 		static void Main(string[] args)
 		{
+			AppInfo.AppInitialize();
+
 			// 引数をログファイルへ保存
 			foreach( string cmd in args ) {
-				AppInfo.WriteLogFile( cmd );
+				DebugUtillity.WriteLogFile( cmd );
 			}
 
 			// 引数の確認

@@ -89,6 +89,13 @@ namespace Utility
 			return System.IO.Path.GetFileName( path );
 		}
 
+		/// *******************************************************************
+		/// <summary>
+		/// パスからディレクトリ名を取得
+		/// </summary>
+		/// <param name="path">パス</param>
+		/// <returns>ディレクトリ名</returns>
+		/// *******************************************************************
 		public static string GetDirectory(string path)
 		{
 			return System.IO.Path.GetDirectoryName(path);
