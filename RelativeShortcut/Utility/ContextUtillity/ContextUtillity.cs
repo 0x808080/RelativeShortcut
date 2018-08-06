@@ -10,10 +10,15 @@ namespace Utility
 	class ContextUtillity
 	{
 		/// <summary>コンテキストメニューに追加する時のタグ</summary>
-		const string VERD = "RelativeShortcut";
+		private const string VERD_01 = "RelativeShortcut_01";
+		private const string VERD_02 = "RelativeShortcut_02";
 
-		/// <summary>コンテキストメニューに追加する対象(*はすべてのファイル)</summary>
-		const string TARGET = "*\\shell\\";
+		/// <summary>コンテキストメニューに追加する対象</summary>
+		private const string DST_TARGET = "Directory\\Background\\shell\\";
+		private const string SRC_TARGET = "*\\shell\\";
+
+		public const string CONTEXT_CMD_01 = "/l";
+		public const string CONTEXT_CMD_02 = "/c";
 
 		/// *******************************************************************
 		/// <summary>
@@ -24,28 +29,35 @@ namespace Utility
 		public static void AddContextMenu()
 		{
 			// 実行するコマンドライン
-			string commandline = "\"" + Application.ExecutablePath + "\" \"%1\"";
+			string commandline_01 = "\"" + Application.ExecutablePath + "\" \"%1\" " + "\"" + CONTEXT_CMD_01 + "\"";
+			string commandline_02 = "\"" + Application.ExecutablePath + "\" \"%V\" " + "\"" + CONTEXT_CMD_02 + "\"";
 
 			// 説明（エクスプローラのコンテキストメニューに表示される）
-			string description = "相対リンクに変換(&L)";
+			string description_01 = "リンク対象に選択(&L)";
+			string description_02 = "相対リンクに変換(&C)";
 
-			string verb = VERD;
+			string verb_01 = VERD_01;
+			string verb_02 = VERD_02;
 
 			//フォルダへの関連付けを行う
 			try {
-				Microsoft.Win32.RegistryKey cmdkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey( TARGET + verb + "\\command" );
-				cmdkey.SetValue( "", commandline );
+				Microsoft.Win32.RegistryKey cmdkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey( SRC_TARGET + verb_01 + "\\command" );
+				cmdkey.SetValue( "", commandline_01 );
 				cmdkey.Close();
-			} catch {
-				MsgUtillity.ShowMsg( "例外が発生しました。(管理者権限で実行してください)", MsgType.ERR );
-				return;
-			}
 
-			try {
 				//説明を書き込む
-				Microsoft.Win32.RegistryKey verbkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey( TARGET + verb );
-				verbkey.SetValue( "", description );
+				Microsoft.Win32.RegistryKey verbkey = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey( SRC_TARGET + verb_01 );
+				verbkey.SetValue( "", description_01 );
 				verbkey.Close();
+
+				Microsoft.Win32.RegistryKey cmdkey_02 = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey( DST_TARGET + verb_02 + "\\command" );
+				cmdkey_02.SetValue( "", commandline_02 );
+				cmdkey_02.Close();
+
+				//説明を書き込む
+				Microsoft.Win32.RegistryKey verbkey_02 = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey( DST_TARGET + verb_02 );
+				verbkey_02.SetValue( "", description_02 );
+				verbkey_02.Close();
 			} catch {
 				MsgUtillity.ShowMsg( "例外が発生しました。(管理者権限で実行してください)", MsgType.ERR );
 				return;
@@ -60,11 +72,13 @@ namespace Utility
 		/// *******************************************************************
 		public static void DelContextMenu()
 		{
-			string verb = VERD;
+			string verb_01 = VERD_01;
+			string verb_02 = VERD_02;
 
 			//レジストリキーを削除
 			try {
-				Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree( TARGET + verb );
+				Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree( SRC_TARGET + verb_01 );
+				Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree( DST_TARGET + verb_02 );
 			} catch {
 				MsgUtillity.ShowMsg( "例外が発生しました。(管理者権限で実行してください)", MsgType.ERR );
 				return;

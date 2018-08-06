@@ -15,9 +15,6 @@ namespace RelativeShortcut
 {
 	public partial class Form1 : Form
 	{
-		/// <summary>ログファイルのパス</summary>
-		const string LOG_FILE_NAME = "log.log";
-
 		public Form1()
 		{
 			InitializeComponent();
@@ -32,7 +29,14 @@ namespace RelativeShortcut
 		/// *******************************************************************
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			GetCmdPram();
+			string[] cmds = GetCmdPram();
+
+			// 引数がない場合は何もしない
+			if(cmds.Length < 2 ) {
+				return;
+			}
+
+
 		}
 
 		/// *******************************************************************
@@ -43,16 +47,8 @@ namespace RelativeShortcut
 		/// *******************************************************************
 		private string[] GetCmdPram()
 		{
-			// コマンドライン引数を表示する
-			Console.WriteLine( System.Environment.CommandLine );
-
 			// コマンドライン引数を配列で取得する
 			string[] cmds = System.Environment.GetCommandLineArgs();
-
-			// コマンドライン引数を列挙する
-			foreach( string cmd in cmds ) {
-				Console.WriteLine( cmd );
-			}
 
 			return cmds;
 		}
@@ -69,7 +65,25 @@ namespace RelativeShortcut
 			string str = dt.ToString();
 			string log = str + "\t" + data;
 
-			FileUtillity.WriteTextFile(LOG_FILE_NAME, log, true);
+			FileUtillity.WriteTextFile(AppInfo.LOG_FILE_NAME, log, true);
+		}
+
+		/// *******************************************************************
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		/// *******************************************************************
+		private void Button1_Click(object sender, EventArgs e)
+		{
+			ContextUtillity.AddContextMenu();
+		}
+
+		private void Button2_Click(object sender, EventArgs e)
+		{
+			ContextUtillity.DelContextMenu();
+
 		}
 	}
 }
