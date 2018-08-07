@@ -46,11 +46,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInfo\AppInfo.cs" />
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Forms\MainForm\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OptionForm\OptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OptionForm\OptionForm.Designer.cs">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OptionForm\SubForm\OptionNetworkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OptionForm\SubForm\OptionNetworkForm.Designer.cs">
+      <DependentUpon>OptionNetworkForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OptionForm\SubForm\OptionShellForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OptionForm\SubForm\OptionShellForm.Designer.cs">
+      <DependentUpon>OptionShellForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,8 +78,17 @@
     <Compile Include="Utility\FileUtillity\FileUtillity.cs" />
     <Compile Include="Utility\MsgUtillity\MsgUtillity.cs" />
     <Compile Include="Utility\ShortcutUtillity\ShortcutUtillity.cs" />
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionForm\OptionForm.resx">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionForm\SubForm\OptionNetworkForm.resx">
+      <DependentUpon>OptionNetworkForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionForm\SubForm\OptionShellForm.resx">
+      <DependentUpon>OptionShellForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
