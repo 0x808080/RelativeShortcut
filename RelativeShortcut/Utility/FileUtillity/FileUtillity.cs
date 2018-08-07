@@ -12,6 +12,9 @@ namespace Utility
 		/// <summary>ファイル読書き時の文字コード</summary>
 		private const string MOJI_CODE = "Shift_JIS";
 
+		/// <summary>アプリデータのセーブファイル</summary>
+		private const string SAVE_FILE_NAME = @"C:\Temp\settings.config";
+
 		/// *******************************************************************
 		/// <summary>
 		/// ファイルへの書き込み
@@ -79,7 +82,7 @@ namespace Utility
 
 		/// *******************************************************************
 		/// <summary>
-		/// パスからファイル名を取り出し
+		/// パスからファイル名を取得
 		/// </summary>
 		/// <param name="path">パス</param>
 		/// <returns>ファイル名</returns>
@@ -98,7 +101,60 @@ namespace Utility
 		/// *******************************************************************
 		public static string GetDirectory(string path)
 		{
-			return System.IO.Path.GetDirectoryName(path);
+			return System.IO.Path.GetDirectoryName( path );
+		}
+
+		/// *******************************************************************
+		/// <summary>
+		/// データをセーブ
+		/// </summary>
+		/// <typeparam name="T">セーブデータのClass</typeparam>
+		/// *******************************************************************
+		public static void SaveAppData<T>(T obj) where T : class
+		{
+			// 書き込むオブジェクトの型を指定する
+			System.Xml.Serialization.XmlSerializer serializer1 = new System.Xml.Serialization.XmlSerializer( typeof( T ) );
+
+			// ファイルを開く（UTF-8 BOM無し）
+			System.IO.StreamWriter sw = new System.IO.StreamWriter( SAVE_FILE_NAME, false, new System.Text.UTF8Encoding( false ) );
+
+			// シリアル化し、XMLファイルに保存する
+			serializer1.Serialize( sw, obj );
+
+			// 閉じる
+			sw.Close();
+		}
+
+		/// *******************************************************************
+		/// <summary>
+		/// セーブデータからロード
+		/// </summary>
+		/// <typeparam name="T">セーブデータのClass</typeparam>
+		/// <returns></returns>
+		/// *******************************************************************
+		public static T LoadAppData<T>() where T : class, new()
+		{
+			// XmlSerializerオブジェクトの作成
+			System.Xml.Serialization.XmlSerializer serializer2 = new System.Xml.Serialization.XmlSerializer( typeof( T ) );
+
+			T appSettings;
+			
+			try {
+				// ファイルを開く
+				System.IO.StreamReader sr = new System.IO.StreamReader( SAVE_FILE_NAME, new System.Text.UTF8Encoding( false ) );
+
+				// XMLファイルから読み込み、逆シリアル化する
+				appSettings = (T)serializer2.Deserialize( sr );
+
+				//閉じる
+				sr.Close();
+
+			} catch {
+
+				appSettings = new T();
+			}
+
+			return appSettings;
 		}
 	}
 }

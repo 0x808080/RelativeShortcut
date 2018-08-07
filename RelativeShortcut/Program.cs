@@ -18,6 +18,7 @@ namespace RelativeShortcut
 		[STAThread]
 		static void Main(string[] args)
 		{
+			// アプリの初期化
 			AppInfo.AppInitialize();
 
 			// 引数をログファイルへ保存
@@ -28,21 +29,30 @@ namespace RelativeShortcut
 			// 引数の確認
 			if( args.Length > 0 ) {
 
+				// ロードしたアプリデータを参照
+				AppSaveData saveData = AppInfo.SaveData;
+
 				switch( args[0] ) {
 				case ContextUtillity.CONTEXT_CMD_01:
-					AppInfo.WriteTempFile( args[1] );
+					// リンク元ファイルのパスを保存
+					saveData.SrcPath = args[1];
+					FileUtillity.SaveAppData<AppSaveData>(saveData);
 					break;
 
 				case ContextUtillity.CONTEXT_CMD_02:
-					string src = AppInfo.ReadTempFile();
-					ShortcutUtillity.MakeRelativeShortcut( src, args[1] );
+					// 保存したリンク元ファイルと指定されたリンク先とのリンク
+					saveData.DstPath = args[1];
+					FileUtillity.SaveAppData<AppSaveData>(saveData);
+					ShortcutUtillity.MakeRelativeShortcut( saveData.SrcPath, saveData.DstPath );
 					break;
 
 				case ContextUtillity.START_PRAM_ADD:
+					// コンテキストメニューへの登録
 					ContextUtillity.AddContextMenu();
 					break;
 
 				case ContextUtillity.START_PRAM_DEL:
+					// コンテキストメニューへの解除
 					ContextUtillity.DelContextMenu();
 					break;
 				}

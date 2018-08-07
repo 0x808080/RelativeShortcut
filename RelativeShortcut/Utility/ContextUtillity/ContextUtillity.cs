@@ -17,9 +17,13 @@ namespace Utility
 		private const string DST_TARGET = "Directory\\Background\\shell\\";
 		private const string SRC_TARGET = "*\\shell\\";
 
+		/// <summary>コンテキストメニュ―の「リンク対象に選択」時</summary>
 		public const string CONTEXT_CMD_01 = "/l";
+		/// <summary>コンテキストメニュ―の「相対リンクに変換」時</summary>
 		public const string CONTEXT_CMD_02 = "/c";
+		/// <summary>コマンド起動でのコンテキスト登録時</summary>
 		public const string START_PRAM_ADD = "/add";
+		/// <summary>コマンド起動でのコンテキスト解除時</summary>
 		public const string START_PRAM_DEL = "/del";
 
 		/// *******************************************************************

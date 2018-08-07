@@ -15,6 +15,18 @@ namespace RelativeShortcut
 {
 	public partial class OptionForm : Form
 	{
+		/// <summary>終了時の戻り値</summary>
+		public string ReturnValue;
+
+		/// <summary>開始時の引数</summary>
+		public object ShowData;
+
+		/// <summary>最後に表示したフォーム</summary>
+		private Form lastSelForm;
+
+		/// <summary>フォームのハッシュテーブル</summary>
+		private Hashtable formHashTbl = new Hashtable();
+
 		/// *******************************************************************
 		/// <summary>
 		/// コンストラクタ
@@ -28,18 +40,6 @@ namespace RelativeShortcut
 			AddSubForm<OptionShellForm>();
 			AddSubForm<OptionNetworkForm>();
 		}
-
-		/// <summary>終了時の戻り値</summary>
-		public string ReturnValue;
-
-		/// <summary>開始時の引数</summary>
-		public object ShowData;
-
-		/// <summary>最後に表示したフォーム</summary>
-		private Form lastSelForm;
-
-		/// <summary>フォームのハッシュテーブル</summary>
-		private Hashtable formHashTbl = new Hashtable();
 
 		/// *******************************************************************
 		/// <summary>

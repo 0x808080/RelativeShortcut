@@ -18,23 +18,25 @@ namespace Utility
 		/// *******************************************************************
 		public static void AdminStart(string arg)
 		{
-			// 管理者として自分自身を起動する
 			System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
+
 			// ShellExecuteを使う。デフォルトtrueなので、必要はない。
 			psi.UseShellExecute = true;
+
 			// 自分自身のパスを設定する
 			psi.FileName = Application.ExecutablePath;
-			// 動詞に「runas」をつける
+
+			// 動詞に「runas」をつける(管理者権限での起動のため)
 			psi.Verb = "runas";
-			// パラメータを設定
+
+			// 起動パラメータを設定
 			psi.Arguments = arg;
 
 			try {
 				// 起動する
 				System.Diagnostics.Process.Start( psi );
 			} catch( System.ComponentModel.Win32Exception ex ) {
-				// 「ユーザーアカウント制御」ダイアログでキャンセルされたなどによって
-				// 起動できなかった時
+				// 「ユーザーアカウント制御」ダイアログでキャンセルされたなどによって起動できなかった時
 				Console.WriteLine( "起動しませんでした: " + ex.Message );
 			}
 		}
