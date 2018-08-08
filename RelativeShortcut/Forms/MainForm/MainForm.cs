@@ -6,8 +6,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,8 +15,19 @@ using Utility;
 
 namespace RelativeShortcut
 {
+	/// <summary>
+	/// メインフォーム
+	/// </summary>
 	public partial class Form1 : Form
 	{
+		/// <summary>タイマー管理Class</summary>
+		private TimerUtillity timerUtillity = null;
+
+		/// <summary>UDP通信クラス</summary>
+		private UdpUtillity udpUtillity = null;
+
+		/// <summary>搭載されているメモリ量(MB)</summary>
+		private int MaxMemorySize = 0;
 
 		/// *******************************************************************
 		/// <summary>
@@ -34,6 +45,27 @@ namespace RelativeShortcut
 			IconUtillity.SetIconImage( SysBtn, ICON_TYPE.ICON_SYSTEM );
 			IconUtillity.SetIconImage( InfoBtn, ICON_TYPE.ICON_INFO );
 			IconUtillity.SetIconImage( WarningBtn, ICON_TYPE.ICON_WARNING );
+		}
+
+		/// *******************************************************************
+		/// <summary>
+		/// フォームロードイベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		/// *******************************************************************
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			// 周期タイマー起動
+			if( timerUtillity == null ) {
+				timerUtillity = new TimerUtillity();
+				timerUtillity.TimerEvent += new TimerUtillity.TimerEventHandler( ShowCPUInfo );     // CPU
+				timerUtillity.TimerEvent += new TimerUtillity.TimerEventHandler( ShowMemoryInfo );  // メモリ
+				timerUtillity.TimerEvent += new TimerUtillity.TimerEventHandler( ShowHDDInfo );		// HDD
+				timerUtillity.StartTimer( AppInfo.MONITOR_INTERVAL );
+			}
+
+			MaxMemorySize = DebugUtillity.GetMaxMemorySize();
 		}
 
 		/// *******************************************************************
@@ -95,37 +127,69 @@ namespace RelativeShortcut
 		/// *******************************************************************
 		private void WarningBtn_Click(object sender, EventArgs e)
 		{
-			this.IsMdiContainer = true;
-			MdiUtil.LoadProcessInControl( @"D:\work\NS__SVN\01-資料\01-提供資料\20180222-01_打合せ時提供物\FTPツール\MAI\MAI.exe", MdiUtil.GetMdiClient( this ) );
+
 		}
 
-
-
-		public static class MdiUtil
+		/// *******************************************************************
+		/// <summary>
+		/// CPU使用率の表示
+		/// </summary>
+		/// <param name="e"></param>
+		/// *******************************************************************
+		private void ShowCPUInfo(TimerUtillity.TimerEventArgs e)
 		{
-			[DllImport( "user32.dll", SetLastError = true )]
-			private static extern uint SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+			int val = (int)DebugUtillity.GetCPUMonitor();
 
-			public static void LoadProcessInControl(string filename, Control ctrl)
+			this.Invoke( (Action)(() =>
 			{
-				Process p = Process.Start( filename );
-				p.WaitForInputIdle();
+				//StripStatusCPU.Text = "　CPU使用率: " + val.ToString() + @"%";
+				StripProgressCPU.Maximum = 101;
+				StripProgressCPU.Value = val;
+			}) );
+		}
 
-				System.Threading.Thread.Sleep(1000);
-
-				SetParent( p.MainWindowHandle, ctrl.Handle );
+		/// *******************************************************************
+		/// <summary>
+		/// メモリ使用量の表示
+		/// </summary>
+		/// <param name="e"></param>
+		/// *******************************************************************
+		private void ShowMemoryInfo(TimerUtillity.TimerEventArgs e)
+		{
+			if( MaxMemorySize == 0 ) {
+				return;
 			}
 
-			public static MdiClient GetMdiClient(Form form)
-			{
-				foreach( Control c in form.Controls ) {
-					if( c is MdiClient ) {
-						return (MdiClient)c;
-					}
-				}
+			int val = (int)DebugUtillity.GetMemoryMonitor();
 
-				return null;
+			int useSize = MaxMemorySize - val;
+
+			this.Invoke( (Action)(() =>
+			{
+				StripStatusMemory.Text = "　メモリ使用量" + useSize.ToString() + "MB";
+				StripProgressMemory.Maximum = MaxMemorySize;
+				StripProgressMemory.Value = useSize;
+			}) );
+		}
+
+		/// *******************************************************************
+		/// <summary>
+		/// HDD使用率の表示
+		/// </summary>
+		/// <param name="e"></param>
+		/// *******************************************************************
+		private void ShowHDDInfo(TimerUtillity.TimerEventArgs e)
+		{
+			int val = (int)DebugUtillity.GetHDDMonitor();
+
+			if( val > 100 ) {
+				val = 100;
 			}
+
+			this.Invoke( (Action)(() =>
+			{
+				StripProgressCPU.Value = val;
+			}) );
 		}
 	}
 }

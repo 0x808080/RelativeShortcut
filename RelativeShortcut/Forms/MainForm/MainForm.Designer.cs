@@ -39,7 +39,12 @@
 			this.WarningBtn = new System.Windows.Forms.Button();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.StripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.StripStatusConn = new System.Windows.Forms.ToolStripStatusLabel();
+			this.StripStatusCPU = new System.Windows.Forms.ToolStripStatusLabel();
+			this.StripProgressCPU = new System.Windows.Forms.ToolStripProgressBar();
+			this.StripStatusMemory = new System.Windows.Forms.ToolStripStatusLabel();
+			this.StripProgressMemory = new System.Windows.Forms.ToolStripProgressBar();
+			this.StripStatusHDD = new System.Windows.Forms.ToolStripStatusLabel();
+			this.StripProgressHDD = new System.Windows.Forms.ToolStripProgressBar();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.SuspendLayout();
@@ -95,7 +100,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.splitContainer1.Location = new System.Drawing.Point(143, 93);
 			this.splitContainer1.Name = "splitContainer1";
-			this.splitContainer1.Size = new System.Drawing.Size(1125, 615);
+			this.splitContainer1.Size = new System.Drawing.Size(1125, 602);
 			this.splitContainer1.SplitterDistance = 846;
 			this.splitContainer1.TabIndex = 3;
 			// 
@@ -104,7 +109,7 @@
 			this.SysBtn.BackColor = System.Drawing.SystemColors.Control;
 			this.SysBtn.Location = new System.Drawing.Point(7, 18);
 			this.SysBtn.Name = "SysBtn";
-			this.SysBtn.Size = new System.Drawing.Size(119, 70);
+			this.SysBtn.Size = new System.Drawing.Size(119, 80);
 			this.SysBtn.TabIndex = 4;
 			this.SysBtn.Text = "システム";
 			this.SysBtn.UseVisualStyleBackColor = false;
@@ -113,9 +118,9 @@
 			// InfoBtn
 			// 
 			this.InfoBtn.BackColor = System.Drawing.SystemColors.Control;
-			this.InfoBtn.Location = new System.Drawing.Point(7, 94);
+			this.InfoBtn.Location = new System.Drawing.Point(7, 104);
 			this.InfoBtn.Name = "InfoBtn";
-			this.InfoBtn.Size = new System.Drawing.Size(119, 70);
+			this.InfoBtn.Size = new System.Drawing.Size(119, 80);
 			this.InfoBtn.TabIndex = 4;
 			this.InfoBtn.Text = "情報";
 			this.InfoBtn.UseVisualStyleBackColor = false;
@@ -137,9 +142,9 @@
 			// WarningBtn
 			// 
 			this.WarningBtn.BackColor = System.Drawing.SystemColors.Control;
-			this.WarningBtn.Location = new System.Drawing.Point(7, 170);
+			this.WarningBtn.Location = new System.Drawing.Point(7, 190);
 			this.WarningBtn.Name = "WarningBtn";
-			this.WarningBtn.Size = new System.Drawing.Size(119, 70);
+			this.WarningBtn.Size = new System.Drawing.Size(119, 80);
 			this.WarningBtn.TabIndex = 4;
 			this.WarningBtn.Text = "異常";
 			this.WarningBtn.UseVisualStyleBackColor = false;
@@ -149,7 +154,12 @@
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StripStatusLabel1,
-            this.StripStatusConn});
+            this.StripStatusCPU,
+            this.StripProgressCPU,
+            this.StripStatusMemory,
+            this.StripProgressMemory,
+            this.StripStatusHDD,
+            this.StripProgressHDD});
 			this.statusStrip1.Location = new System.Drawing.Point(0, 698);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(1280, 22);
@@ -158,17 +168,43 @@
 			// 
 			// StripStatusLabel1
 			// 
+			this.StripStatusLabel1.AutoSize = false;
 			this.StripStatusLabel1.Name = "StripStatusLabel1";
-			this.StripStatusLabel1.Size = new System.Drawing.Size(67, 17);
-			this.StripStatusLabel1.Text = "通信状態：";
+			this.StripStatusLabel1.Size = new System.Drawing.Size(120, 17);
+			this.StripStatusLabel1.Text = "通信状態：未接続";
 			// 
-			// StripStatusConn
+			// StripStatusCPU
 			// 
-			this.StripStatusConn.AutoSize = false;
-			this.StripStatusConn.BackColor = System.Drawing.SystemColors.Control;
-			this.StripStatusConn.Name = "StripStatusConn";
-			this.StripStatusConn.Size = new System.Drawing.Size(50, 17);
-			this.StripStatusConn.Text = "未接続";
+			this.StripStatusCPU.Name = "StripStatusCPU";
+			this.StripStatusCPU.Size = new System.Drawing.Size(77, 17);
+			this.StripStatusCPU.Text = "　CPU使用率";
+			// 
+			// StripProgressCPU
+			// 
+			this.StripProgressCPU.Name = "StripProgressCPU";
+			this.StripProgressCPU.Size = new System.Drawing.Size(100, 16);
+			// 
+			// StripStatusMemory
+			// 
+			this.StripStatusMemory.Name = "StripStatusMemory";
+			this.StripStatusMemory.Size = new System.Drawing.Size(112, 17);
+			this.StripStatusMemory.Text = "　メモリ使用量XXMB";
+			// 
+			// StripProgressMemory
+			// 
+			this.StripProgressMemory.Name = "StripProgressMemory";
+			this.StripProgressMemory.Size = new System.Drawing.Size(100, 16);
+			// 
+			// StripStatusHDD
+			// 
+			this.StripStatusHDD.Name = "StripStatusHDD";
+			this.StripStatusHDD.Size = new System.Drawing.Size(80, 17);
+			this.StripStatusHDD.Text = "　HDD使用率";
+			// 
+			// StripProgressHDD
+			// 
+			this.StripProgressHDD.Name = "StripProgressHDD";
+			this.StripProgressHDD.Size = new System.Drawing.Size(100, 16);
 			// 
 			// Form1
 			// 
@@ -183,6 +219,7 @@
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "Form1";
 			this.Text = "0000";
+			this.Load += new System.EventHandler(this.Form1_Load);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -207,8 +244,13 @@
 		private System.Windows.Forms.Button WarningBtn;
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripStatusLabel StripStatusLabel1;
-		private System.Windows.Forms.ToolStripStatusLabel StripStatusConn;
 		private System.Windows.Forms.ToolStripMenuItem ExitStripMenuItem;
+		private System.Windows.Forms.ToolStripStatusLabel StripStatusCPU;
+		private System.Windows.Forms.ToolStripProgressBar StripProgressCPU;
+		private System.Windows.Forms.ToolStripStatusLabel StripStatusMemory;
+		private System.Windows.Forms.ToolStripProgressBar StripProgressMemory;
+		private System.Windows.Forms.ToolStripStatusLabel StripStatusHDD;
+		private System.Windows.Forms.ToolStripProgressBar StripProgressHDD;
 	}
 }
 

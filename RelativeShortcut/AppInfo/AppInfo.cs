@@ -13,6 +13,9 @@ namespace RelativeShortcut
 		/// <summary>ログファイルのパス</summary>
 		public const string LOG_FILE_NAME = "C:\\Temp\\log.log";
 
+		/// <summary>モニターの監視間隔</summary>
+		public const int MONITOR_INTERVAL = 2000;
+
 		/// <summary>ロードしたセーブデータ</summary>
 		public static AppSaveData SaveData = null;
 

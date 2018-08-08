@@ -32,8 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,10 +78,13 @@
     <Compile Include="Utility\AdminUtillity\AdminUtillity.cs" />
     <Compile Include="Utility\ContextUtillity\ContextUtillity.cs" />
     <Compile Include="Utility\DebugUtillity\DebugUtillity.cs" />
+    <Compile Include="Utility\ExAppUtillity\ExAppUtillity.cs" />
     <Compile Include="Utility\FileUtillity\FileUtillity.cs" />
     <Compile Include="Utility\IconUtillity\IconUtillity.cs" />
     <Compile Include="Utility\MsgUtillity\MsgUtillity.cs" />
+    <Compile Include="Utility\NetWorkUtillity\UdpUtillity.cs" />
     <Compile Include="Utility\ShortcutUtillity\ShortcutUtillity.cs" />
+    <Compile Include="Utility\TimerUtillity\TimerUtillity.cs" />
     <EmbeddedResource Include="Forms\MainForm\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -125,5 +130,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
